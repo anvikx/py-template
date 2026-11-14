@@ -1,0 +1,18 @@
+# SITE_ADDRESS=example.com gives automatic HTTPS. Default :80 serves plain HTTP for local use.
+{$SITE_ADDRESS::80} {
+	encode gzip
+
+	handle /api/* {
+		# Flush at once so SSE streams are not buffered.
+		reverse_proxy backend:8000 {
+			flush_interval -1
+		}
+	}
+
+	# SPA: unknown paths fall back to index.html for client routing.
+	handle {
+		root * /srv
+		try_files {path} /index.html
+		file_server
+	}
+}
