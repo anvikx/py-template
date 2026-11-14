@@ -1,8 +1,8 @@
 import { useEffect, useState, type ReactElement } from 'react'
 
-import { getHealth } from './api.ts'
+import { getHealth, type BackendHealth } from './api.ts'
 
-type BackendStatus = 'loading' | 'ok' | 'down'
+type BackendStatus = 'loading' | BackendHealth
 
 export function App(): ReactElement {
   const [status, setStatus] = useState<BackendStatus>('loading')
@@ -10,7 +10,7 @@ export function App(): ReactElement {
   useEffect(() => {
     getHealth()
       .then((health) => {
-        setStatus(health.status === 'ok' ? 'ok' : 'down')
+        setStatus(health)
       })
       .catch(() => {
         setStatus('down')

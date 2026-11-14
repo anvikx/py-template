@@ -10,7 +10,10 @@ _API_PREFIX = "/api"
 def create_app(settings: Settings | None = None) -> FastAPI:
     settings = settings or Settings()
     app = FastAPI(title=settings.app_name)
-    app.include_router(health.router, prefix=_API_PREFIX)
+    app.include_router(
+        health.router,
+        prefix=_API_PREFIX,
+    )
     return app
 
 
