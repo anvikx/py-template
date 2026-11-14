@@ -4,7 +4,6 @@
 LINT_IMAGE := rhysd/actionlint@sha256:b1934ee5f1c509618f2508e6eb47ee0d3520686341fec936f3b79331f9315667
 LINT_RUN := docker run --rm -v "$(CURDIR):/repo" -w /repo
 
-# Install all deps for local work.
 setup:
 	cd backend && uv sync
 	cd frontend && npm ci
